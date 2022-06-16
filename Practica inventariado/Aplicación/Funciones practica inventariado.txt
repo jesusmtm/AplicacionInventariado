@@ -1,0 +1,27 @@
+Altas:
+Alta de usuario --
+Alta de equipo --
+Alta de ubicacion --
+Alta de software --
+Alta de asignacion --
+
+Modificaciones:
+Modificar usuario --
+Modificar equipo --
+
+Borrado:
+Borrado de usuario --
+Borrado de equipo --
+Borrado de ubicacion --
+Borrado de software --
+Borrado de asignacion --
+
+
+Listados:
+Listado de usuarios --
+Listado de equipos --
+Listado de ubicaciones --
+Listado de software --
+Listado de asignacion --
+Listado de usuarios por ubicacion --
+Listado de equipos por software --

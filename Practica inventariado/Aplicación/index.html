@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+	<!-- Enlaces a bootstrap-->
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		body {
+			margin-left: 10px;
+		}
+
+		.btn {
+			background:#000000;
+			color:#FFFFFF;
+			border:0px;
+		}
+
+		.error{
+			Background-color: yellow;
+		}
+
+		/*    
+    	form {
+            display: none;
+        }
+	*/
+    .navbar-default {
+    background-color: #ac94ff;
+}
+
+.navbar{
+	height: 70px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: black;
+	margin-top: 10px;
+}
+
+		#formularios {
+			margin-top: 60px;
+		}
+
+		.navbar-default .navbar-brand {
+    color: black;
+}
+
+
+
+	</style>
+	<title>Inventariado</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		
+		<div class="container-fluid">
+			<!--
+			<a class="navbar-brand">
+			<img src="botella.png" alt="logo" class="img-fluid" width="40px" height="40px">
+			</a>
+			-->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="index.html" style="font-weight:bold;color:rgb(0, 0, 0);margin-top: 10px;font-family: Copperplate, Copperplate Gothic Light, fantasy;">INVEN</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="#" id="mnuAltaUsuario">Alta Usuario</a>
+				</li>
+				<li>
+					<a href="#" id="mnuModificarUsuario">Modificar Usuario</a>
+				</li>
+				<li>
+					<a href="#" id="mnuAltaEquipo">Alta Equipo</a>
+				</li>
+				<li>
+					<a href="#" id="mnuModificarEquipo">Modificar Equipo</a>
+				</li>
+				<li>
+					<a href="#" id="mnuAltaSoftware">Alta Software</a>
+				</li>
+				<li>
+					<a href="#" id="mnuBorrarSoftware">Borrar Software</a>
+				</li>
+				<li>
+					<a href="#" id="mnuAsignarSoftware">Asignar Software</a>
+				</li>
+				<li>
+					<a href="#" id="mnuDesasignarSoftware">Desasignar Software</a>
+				</li>
+				<li>
+					<a href="#" id="mnuAltaUbicacion">Alta Ubicación</a>
+				</li>
+				<li>
+					<a href="#" id="mnuBorrarUbicacion">Borrar Ubicación</a>
+				</li>
+				<li class="btn-group">
+					<br>
+						<button type="button" class="btn dropdown-toggle" data-toggle="dropdown"> Listados <span class="caret"></span></button>
+						<ul class="dropdown-menu" role="menu">
+						  <li><a href="#" id="mnuListaXML">XML</a></li>
+						  <li><a href="#" id="mnuListaUsuarios">Usuarios</a></li>
+						  <li><a href="#" id="mnuListaEquipos">Equipos</a></li>
+						  <li><a href="#" id="mnuListaSoftware">Software</a></li>
+						  <li><a href="#" id="mnuListaAsignaciones">Asignaciones</a></li>
+						  <li><a href="#" id="mnuListaUbicaciones">Ubicaciones</a></li>
+						  <li class="divider"></li>
+						  <li><a href="#" id="mnuListaUsuariosUbicacion">Usuarios por ubicación</a></li>
+						  <li><a href="#" id="mnuListaEquiposSoftware">Equipos por Software</a></li>
+						</ul>
+				</li>
+				
+			</ul>
+		</div>
+	</nav>
+
+	<div id="formularios" style="margin-top: 80px;"></div>
+	
+	<div id="listados"></div>
+	
+    <script type="text/javascript" src="jquery/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+
+</html>
