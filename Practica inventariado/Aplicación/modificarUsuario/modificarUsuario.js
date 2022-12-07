@@ -2,8 +2,12 @@
 //# sourceURL=ModificacionUsuario.js
 
 let datosJSON;
+let comboValue;
 var idUsuario;
-document.querySelector("#btnBusquedaModificacionUsuario").addEventListener("click", validarModificacionUsuario, false);
+
+$(document).ready(function() {
+    document.querySelector("#btnBusquedaModificacionUsuario").addEventListener("click", validarModificacionUsuario, false);
+});
 
 function validarModificacionUsuario(){
     let bValido = true; // en principio el formulario es válido
@@ -63,7 +67,8 @@ function busqueda(oEvento){
         }
     var sParametros = "busquedaId=" + JSON.stringify(busqueda);
     $.get("modificarUsuario/busquedaUsuario.php", sParametros, procesoRespuestaBusquedaUsuario, "json");
-    }else{
+    }
+    else{
         var busqueda = {
             nombreUsuario: frmModificarUsuario.txtNombreModificarUsuario.value.trim(),
         }
@@ -73,18 +78,12 @@ function busqueda(oEvento){
 }
 
 function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
-
     datosJSON=datos;
-    let autonum=0;
-    let divListados = document.querySelector('#listados');
-    let firstChild = listados.firstChild;
+    let autonumMod = 0;
+    let autonumBor = 0;
     
-    // Se comprueba si hay algun listado cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-        
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    listados.innerHTML = "";
+
     var tbThead = document.createElement("thead");
     let trEncabezado = document.createElement("tr");
     
@@ -96,6 +95,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
     let thEncabezadoDepartamento = document.createElement("th");
     let thEncabezadoAnotaciones = document.createElement("th");
     let thEncabezadoModificacion = document.createElement("th");
+    let thEncabezadoBorrado = document.createElement("th");
 
     thEncabezadoId.scope="col";
     thEncabezadoNombre.scope="col";
@@ -105,6 +105,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
     thEncabezadoDepartamento.scope="col";
     thEncabezadoAnotaciones.scope="col";
     thEncabezadoModificacion.scope="col";
+    thEncabezadoBorrado.scope="col";
 
     var textoEncabezadoId = document.createTextNode("ID");
     var textoEncabezadoNombre = document.createTextNode("Nombre"); 
@@ -114,6 +115,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
     var textoEncabezadoDepartamento = document.createTextNode("Departamento"); 
     var textoEncabezadoAnotaciones = document.createTextNode("Anotaciones");
     var textoEncabezadoModificar = document.createTextNode("Modificar");
+    var textoEncabezadoBorrado = document.createTextNode("Borrar");
 
     thEncabezadoId.appendChild(textoEncabezadoId);
     thEncabezadoNombre.appendChild(textoEncabezadoNombre);
@@ -123,6 +125,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
     thEncabezadoDepartamento.appendChild(textoEncabezadoDepartamento);
     thEncabezadoAnotaciones.appendChild(textoEncabezadoAnotaciones);
     thEncabezadoModificacion.appendChild(textoEncabezadoModificar);
+    thEncabezadoBorrado.appendChild(textoEncabezadoBorrado);
 
     trEncabezado.appendChild(thEncabezadoId);
     trEncabezado.appendChild(thEncabezadoNombre);
@@ -132,6 +135,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
     trEncabezado.appendChild(thEncabezadoDepartamento);
     trEncabezado.appendChild(thEncabezadoAnotaciones);
     trEncabezado.appendChild(thEncabezadoModificacion);
+    trEncabezado.appendChild(thEncabezadoBorrado);
 
     var oTabla = document.createElement("table");
     oTabla.className = "table table-dark";
@@ -152,6 +156,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
         var celda6 = document.createElement("td"); 
         var celda7 = document.createElement("td");
         var celda8 = document.createElement("td");
+        var celda9 = document.createElement("td");
 
         celda1.scope="row";
         celda2.scope="row";
@@ -161,6 +166,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
         celda6.scope="row";
         celda7.scope="row";
         celda8.scope="row";
+        celda9.scope="row";
 
         var textoCeldaId = document.createTextNode(element[0]);
         var textoCeldaNombre = document.createTextNode(element[1]); 
@@ -173,7 +179,12 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
         botonModificacion.type = "button";
         botonModificacion.textContent = "Modificar";
         botonModificacion.className = "botonModificarUsuario";
-        botonModificacion.value=autonum++;
+        botonModificacion.value=autonumMod++;
+        var botonBorrado = document.createElement("button");
+        botonBorrado.type = "button";
+        botonBorrado.textContent = "Borrar";
+        botonBorrado.className = "botonBorrarUsuario";
+        botonBorrado.value=autonumBor++;
         
 
         celda1.appendChild(textoCeldaId);
@@ -184,6 +195,7 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
         celda6.appendChild(textoCeldaDepartamento);
         celda7.appendChild(textoCeldaAnotaciones);
         celda8.appendChild(botonModificacion);
+        celda9.appendChild(botonBorrado);
 
         tr.appendChild(celda1);
         tr.appendChild(celda2);
@@ -193,34 +205,36 @@ function procesoRespuestaBusquedaUsuario(datos, sStatus, oXHR){
         tr.appendChild(celda6);
         tr.appendChild(celda7);
         tr.appendChild(celda8);
+        tr.appendChild(celda9);
 
         tblBody.appendChild(tr);
-
+        
+        idUsuario = element[0];
     });
 
     oTabla.appendChild(tblBody);
-    divListados.appendChild(oTabla);
+    listados.appendChild(oTabla);
 
     let botonesModificar = document.querySelectorAll(".botonModificarUsuario");
     botonesModificar.forEach(element => {
         element.addEventListener("click", modificarUsuario, false);
     });
+
+    let botonesBorrado = document.querySelectorAll(".botonBorrarUsuario");
+    botonesBorrado.forEach(element => {
+        element.addEventListener("click", borrarUsuario, false);
+    });
 }
 
 function modificarUsuario(evento){
     abrirFormModificacion(datosJSON[evento.currentTarget.value]);
-    frmModificarUsuario.reset();
+    frmModificarUsuario.txtIdModificarUsuario.value = "";
+    frmModificarUsuario.txtNombreModificarUsuario.value = "";
 }
 
 function abrirFormModificacion(datos){
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
+    listados.innerHTML = "";
 
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
     // Oculto todos los formularios menos este
     $("form:not('#formModificarUsuario')").parent("div").hide("normal");
 
@@ -231,7 +245,8 @@ function abrirFormModificacion(datos){
             function() {
                 if(datos){
                     document.querySelector("#btnAceptarModificarUsuario").addEventListener("click", validarUpdate, false);
-                    document.querySelector("#btnBorrarUsuario").addEventListener("click", borrar, false);
+                    console.log(formModificarUsuario.comboDepartamento.length);
+                    if(formModificarUsuario.comboDepartamento.length==0){cargarComboDepartamento();}
                     rellenarAltaUsuario(datos);
                 }
             });
@@ -241,23 +256,23 @@ function abrirFormModificacion(datos){
         $('#formModificarUsuario').parent().show("normal");
         if(datos){
             document.querySelector("#btnAceptarModificarUsuario").addEventListener("click", validarUpdate, false);
-            document.querySelector("#btnBorrarUsuario").addEventListener("click", borrar, false);
+            console.log(formModificarUsuario.comboDepartamento.length);
+            if(formModificarUsuario.comboDepartamento.length==0){cargarComboDepartamento();}
             rellenarAltaUsuario(datos);
         }
     }
 }
 
 function rellenarAltaUsuario(datos){
-    idUsuario = datos[0];
     let nombreUsuario = formModificarUsuario.txtNombreUsuario.value = datos[1];
     let apellidoUsuario = formModificarUsuario.txtApellidosUsuario.value = datos[2];
     let correoUsuario = formModificarUsuario.txtCorreoUsuario.value = datos[3];
     let telefonoUsuario = formModificarUsuario.txtTelefonoUsuario.value = datos[4];
-    let departamentoUsuario = formModificarUsuario.comboDepartamento.value = datos[5];
+    comboValue = formModificarUsuario.comboDepartamento.value = datos[5];
     let anotacionesUsuario = formModificarUsuario.txtAnotacionesUsuario.value = datos[6];
 }
 
-function borrar(){
+function borrarUsuario(){
     var confirmacion = confirm("Seguro que desea borrar el usuario con id: "+idUsuario+".");
     if(confirmacion){
         var usuario = {
@@ -277,8 +292,6 @@ function procesoRespuestaBorrarUsuario(oDatos, sStatus, oXHR){
         alert(oDatos.mensaje);
     }else{
         alert(oDatos.mensaje);
-        formModificarUsuario.reset();
-        $('#formModificarUsuario').parent("div").hide("normal");
     }
 }
 
@@ -362,6 +375,35 @@ function validarUpdate(){
     }
 }
 
+function cargarComboDepartamento(){
+    $.get("altaUsuario/rellenarcombo.php", null, procesoRespuestaRellenarCombo, "json");
+}
+
+function procesoRespuestaRellenarCombo(oDatos, sStatus, oXHR){
+    let combo = formModificarUsuario.comboDepartamento;
+
+    let optionNone = document.createElement("option");
+    optionNone.setAttribute("value","none");
+
+    let textoOptionNone = document.createTextNode("Seleccione un departamento...");
+
+    optionNone.appendChild(textoOptionNone);
+    combo.appendChild(optionNone);
+    
+    if(oDatos.length >= 0){
+        oDatos.forEach(element => {
+            let option = document.createElement("option");
+            option.setAttribute("value",element[0]);
+
+            let texto = document.createTextNode(element[1]);
+
+            option.appendChild(texto);
+            combo.appendChild(option);
+        });
+    }
+    combo.value = comboValue;
+}
+
 function update(){
     var usuario = {
         id: idUsuario,
@@ -375,6 +417,7 @@ function update(){
     var sParametros = "datosUsuario=" + JSON.stringify(usuario);
     $.get("modificarUsuario/modificarUsuario.php", sParametros, procesoRespuestaUpdateUsuario, "json");
 }
+
 function procesoRespuestaUpdateUsuario(oDatos, sStatus, oXHR){
     if(oDatos.error){
         alert(oDatos.mensaje);

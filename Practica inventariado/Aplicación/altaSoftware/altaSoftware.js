@@ -1,7 +1,9 @@
 "use strict"
 //# sourceURL=altaSoftware.js
 
-document.querySelector("#btnAceptarAltaSoftware").addEventListener("click", validarAltaSoftware, false);
+$(document).ready(function() {
+    document.querySelector("#btnAceptarAltaSoftware").addEventListener("click", validarAltaSoftware, false);
+});
 
 function validarAltaSoftware(){
     let sErrores = "";
@@ -22,6 +24,21 @@ function validarAltaSoftware(){
         frmAltaSoftware.txtNombreSoftware.classList.remove("error");
     }
 
+    let version = frmAltaSoftware.txtVersionSoftware.value.trim();
+    oExpReg = /^[a-zA-Z\s0-9]{1,20}$/;
+
+    if (oExpReg.test(nombre) == false) {
+        if (bValido == true) { // ==> Primer error detectado en este campo
+            frmAltaSoftware.txtVersionSoftware.focus();
+            bValido = false;
+        }
+        frmAltaSoftware.txtVersionSoftware.classList.add("error");
+        sErrores += "La version debe contener de 1 a 20 caracteres\n";
+    }
+    else{
+        frmAltaSoftware.txtVersionSoftware.classList.remove("error");
+    }
+
     if (bValido){
         altaSoftware();
     }
@@ -36,6 +53,7 @@ function altaSoftware(oEvento){
     //Post ajax sin jquery
     let oAjax = instanciarXHR();
     let sParametros = "nombreSoftware="+frmAltaSoftware.txtNombreSoftware.value;
+    sParametros+= "&versionSoftware="+frmAltaSoftware.txtVersionSoftware.value;
     sParametros+= "&descripcionSoftware="+frmAltaSoftware.txtDescripcionSoftware.value;
     sParametros = encodeURI(sParametros);
 

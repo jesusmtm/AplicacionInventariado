@@ -1,7 +1,9 @@
 "use strict"
 //# sourceURL=listadoXML.js
 
-getListaXML();
+$(document).ready(function() {
+    getListaXML();
+});
 
 function cargarXML(filename) {
     if (window.XMLHttpRequest){
@@ -17,20 +19,19 @@ function cargarXML(filename) {
 }
 
 function getListaXML(){
-
-    let divListados = document.querySelector('#listados');
-    let firstChild = listados.firstChild;
     var oXML = cargarXML("datos.xml");
     var oDatos = oXML.getElementsByTagName("Usuario");
     
-    // Se comprueba si hay algun listado cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-        
-        //Si lo hay, se limpia
-        console.log(firstChild);
-        console.log(divListados);
-        divListados.removeChild(firstChild);
-    }
+    // Se se limpia el div de listados
+    listados.innerHTML = "";
+
+    let legend = document.createElement("legend");
+    let titulo = document.createElement("h2");
+    let textoTitulo = document.createTextNode("Listado XML");
+
+    titulo.appendChild(textoTitulo);
+    legend.appendChild(titulo);
+    listados.appendChild(legend);
 
     var tbThead = document.createElement("thead");
     let trEncabezado = document.createElement("tr");
@@ -132,7 +133,7 @@ function getListaXML(){
     });
 
     oTabla.appendChild(tblBody);
-    divListados.appendChild(oTabla);
+    listados.appendChild(oTabla);
 }
 
 document.querySelector("#mnuListaXML").addEventListener("click", getListaXML, false);

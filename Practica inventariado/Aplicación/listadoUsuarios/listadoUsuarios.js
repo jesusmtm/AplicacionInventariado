@@ -1,8 +1,9 @@
 "use strict"
 //# sourceURL=listadoUsuarios.js
 
-
-getListaUsuarios();
+$(document).ready(function() {
+    getListaUsuarios();
+});
 
 function getListaUsuarios(){
     $.get("listadoUsuarios/listadoUsuarios.php", null, procesoRespuesta, "html");
@@ -11,16 +12,18 @@ function getListaUsuarios(){
 function procesoRespuesta(datos, textStatus, jqXHR){
     datos=JSON.parse(datos);
 
-    let divListados = document.querySelector('#listados');
-    let firstChild = listados.firstChild;
-    
-    // Se comprueba si hay algun listado cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-        
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
-    var tbThead = document.createElement("thead");
+    // Se se limpia el div de listados
+    listados.innerHTML = "";
+
+    let legend = document.createElement("legend");
+    let titulo = document.createElement("h2");
+    let textoTitulo = document.createTextNode("Listado Usuarios");
+
+    titulo.appendChild(textoTitulo);
+    legend.appendChild(titulo);
+    listados.appendChild(legend);
+
+    let tbThead = document.createElement("thead");
     let trEncabezado = document.createElement("tr");
     
     let thEncabezadoId = document.createElement("th");
@@ -39,13 +42,13 @@ function procesoRespuesta(datos, textStatus, jqXHR){
     thEncabezadoDepartamento.scope="col";
     thEncabezadoAnotaciones.scope="col";
 
-    var textoEncabezadoId = document.createTextNode("ID");
-    var textoEncabezadoNombre = document.createTextNode("Nombre"); 
-    var textoEncabezadoApellido = document.createTextNode("Apellido"); 
-    var textoEncabezadoCorreo = document.createTextNode("Correo"); 
-    var textoEncabezadoTelefono = document.createTextNode("Telefono");
-    var textoEncabezadoDepartamento = document.createTextNode("Departamento"); 
-    var textoEncabezadoAnotaciones = document.createTextNode("Anotaciones");
+    let textoEncabezadoId = document.createTextNode("ID");
+    let textoEncabezadoNombre = document.createTextNode("Nombre"); 
+    let textoEncabezadoApellido = document.createTextNode("Apellido"); 
+    let textoEncabezadoCorreo = document.createTextNode("Correo"); 
+    let textoEncabezadoTelefono = document.createTextNode("Telefono");
+    let textoEncabezadoDepartamento = document.createTextNode("Departamento"); 
+    let textoEncabezadoAnotaciones = document.createTextNode("Anotaciones");
 
     thEncabezadoId.appendChild(textoEncabezadoId);
     thEncabezadoNombre.appendChild(textoEncabezadoNombre);
@@ -54,7 +57,7 @@ function procesoRespuesta(datos, textStatus, jqXHR){
     thEncabezadoTelefono.appendChild(textoEncabezadoTelefono);
     thEncabezadoDepartamento.appendChild(textoEncabezadoDepartamento);
     thEncabezadoAnotaciones.appendChild(textoEncabezadoAnotaciones);
-
+    
     trEncabezado.appendChild(thEncabezadoId);
     trEncabezado.appendChild(thEncabezadoNombre);
     trEncabezado.appendChild(thEncabezadoApellido);
@@ -63,9 +66,9 @@ function procesoRespuesta(datos, textStatus, jqXHR){
     trEncabezado.appendChild(thEncabezadoDepartamento);
     trEncabezado.appendChild(thEncabezadoAnotaciones);
 
-    var oTabla = document.createElement("table");
+    let oTabla = document.createElement("table");
     oTabla.className = "table table-dark";
-    var tblBody = document.createElement("tbody");
+    let tblBody = document.createElement("tbody");
 
     oTabla.appendChild(tblBody);
     tbThead.appendChild(trEncabezado);
@@ -74,13 +77,13 @@ function procesoRespuesta(datos, textStatus, jqXHR){
     datos.forEach(element => {
         let tr = document.createElement("tr");
 
-        var celda1 = document.createElement("td"); 
-        var celda2 = document.createElement("td"); 
-        var celda3 = document.createElement("td"); 
-        var celda4 = document.createElement("td"); 
-        var celda5 = document.createElement("td");
-        var celda6 = document.createElement("td"); 
-        var celda7 = document.createElement("td");
+        let celda1 = document.createElement("td"); 
+        let celda2 = document.createElement("td"); 
+        let celda3 = document.createElement("td"); 
+        let celda4 = document.createElement("td"); 
+        let celda5 = document.createElement("td");
+        let celda6 = document.createElement("td"); 
+        let celda7 = document.createElement("td");
 
         celda1.scope="row";
         celda2.scope="row";
@@ -90,13 +93,13 @@ function procesoRespuesta(datos, textStatus, jqXHR){
         celda6.scope="row";
         celda7.scope="row";
 
-        var textoCeldaId = document.createTextNode(element[0]);
-        var textoCeldaNombre = document.createTextNode(element[1]); 
-        var textoCeldaApellido = document.createTextNode(element[2]); 
-        var textoCeldaCorreo = document.createTextNode(element[3]); 
-        var textoCeldaTelefono = document.createTextNode(element[4]);
-        var textoCeldaDepartamento = document.createTextNode(element[5]); 
-        var textoCeldaAnotaciones = document.createTextNode(element[6]);
+        let textoCeldaId = document.createTextNode(element[0]);
+        let textoCeldaNombre = document.createTextNode(element[1]); 
+        let textoCeldaApellido = document.createTextNode(element[2]); 
+        let textoCeldaCorreo = document.createTextNode(element[3]); 
+        let textoCeldaTelefono = document.createTextNode(element[4]);
+        let textoCeldaDepartamento = document.createTextNode(element[7]); 
+        let textoCeldaAnotaciones = document.createTextNode(element[6]);
 
         celda1.appendChild(textoCeldaId);
         celda2.appendChild(textoCeldaNombre);
@@ -118,7 +121,7 @@ function procesoRespuesta(datos, textStatus, jqXHR){
     });
 
     oTabla.appendChild(tblBody);
-    divListados.appendChild(oTabla);
+    listados.appendChild(oTabla);
 }
 
 document.querySelector("#mnuListaUsuarios").addEventListener("click", getListaUsuarios, false);

@@ -2,7 +2,10 @@
 //# sourceURL=frmBorrarSoftware.js
 
 var idSoftware;
-document.querySelector("#btnBusquedaBajaSoftware").addEventListener("click", validarBajaSoftware, false);
+$(document).ready(function() {
+    frmBorrarSoftware.reset();
+    document.querySelector("#btnBusquedaBajaSoftware").addEventListener("click", validarBajaSoftware, false);
+});
 
 function validarBajaSoftware(){
     let bValido = true; // en principio el formulario es válido
@@ -89,26 +92,31 @@ function procesoRespuestaBusquedaSoftware(datos, textStatus, jqXHR){
     
     let thEncabezadoId = document.createElement("th");
     let thEncabezadoNombre = document.createElement("th");
+    let thEncabezadoVersion = document.createElement("th");
     let thEncabezadoDescripcion = document.createElement("th");
     let thEncabezadoBorrado = document.createElement("th");
 
     thEncabezadoId.scope="col";
     thEncabezadoNombre.scope="col";
+    thEncabezadoVersion.scope="col";
     thEncabezadoDescripcion.scope="col";
     thEncabezadoBorrado.scope="col";
 
     var textoEncabezadoId = document.createTextNode("ID");
-    var textoEncabezadoNombre = document.createTextNode("Nombre"); 
+    var textoEncabezadoNombre = document.createTextNode("Nombre");
+    var textoEncabezadoVersion = document.createTextNode("Version");
     var textoEncabezadoDescripcion = document.createTextNode("Descripcion");
     var textoEncabezadoBorrado = document.createTextNode("Borrado"); 
 
     thEncabezadoId.appendChild(textoEncabezadoId);
     thEncabezadoNombre.appendChild(textoEncabezadoNombre);
+    thEncabezadoVersion.appendChild(textoEncabezadoVersion);
     thEncabezadoDescripcion.appendChild(textoEncabezadoDescripcion);
     thEncabezadoBorrado.appendChild(textoEncabezadoBorrado);
 
     trEncabezado.appendChild(thEncabezadoId);
     trEncabezado.appendChild(thEncabezadoNombre);
+    trEncabezado.appendChild(thEncabezadoVersion);
     trEncabezado.appendChild(thEncabezadoDescripcion);
     trEncabezado.appendChild(thEncabezadoBorrado);
 
@@ -126,31 +134,36 @@ function procesoRespuestaBusquedaSoftware(datos, textStatus, jqXHR){
         var celda1 = document.createElement("td");
         var celda2 = document.createElement("td");
         var celda3 = document.createElement("td");
-        var celda4 = document.createElement("td"); 
+        var celda4 = document.createElement("td");
+        var celda5 = document.createElement("td"); 
 
         celda1.scope="row";
         celda2.scope="row";
         celda3.scope="row";
         celda4.scope="row";
+        celda5.scope="row";
 
         var textoCeldaId = document.createTextNode(element[0])
         var textoCeldaNombre = document.createTextNode(element[1]);
+        var textoCeldaVersion = document.createTextNode(element[3]);
         var textoCeldaDescripcion = document.createTextNode(element[2]);
-        var botonModificacion = document.createElement("button");
-        botonModificacion.type = "button";
-        botonModificacion.textContent = "Borrar";
-        botonModificacion.className = "botonBorrarSoftware";
-        botonModificacion.value=autonum++;
+        var botonBorrado = document.createElement("button");
+        botonBorrado.type = "button";
+        botonBorrado.textContent = "Borrar";
+        botonBorrado.className = "botonBorrarSoftware";
+        botonBorrado.value=autonum++;
 
         celda1.appendChild(textoCeldaId);
         celda2.appendChild(textoCeldaNombre);
-        celda3.appendChild(textoCeldaDescripcion);
-        celda4.appendChild(botonModificacion);
+        celda3.appendChild(textoCeldaVersion);
+        celda4.appendChild(textoCeldaDescripcion);
+        celda5.appendChild(botonBorrado);
 
         tr.appendChild(celda1);
         tr.appendChild(celda2);
         tr.appendChild(celda3);
         tr.appendChild(celda4);
+        tr.appendChild(celda5);
 
         tblBody.appendChild(tr);
 
@@ -158,10 +171,10 @@ function procesoRespuestaBusquedaSoftware(datos, textStatus, jqXHR){
     });
 
     oTabla.appendChild(tblBody);
-    divListados.appendChild(oTabla);
+    listados.appendChild(oTabla);
 
-    let botonesModificar = document.querySelectorAll(".botonBorrarSoftware");
-    botonesModificar.forEach(element => {
+    let botonesBorrado = document.querySelectorAll(".botonBorrarSoftware");
+    botonesBorrado.forEach(element => {
         element.addEventListener("click", borrarSoftware, false);
     });
 }
@@ -188,14 +201,6 @@ function procesoRespuestaBorrarSoftware(oDatos, sStatus, oXHR){
         alert(oDatos.mensaje);
         frmBorrarSoftware.reset();
         $('#frmBorrarSoftware').parent("div").hide("normal");
-        let divListados = document.querySelector('#listados');
-        let firstChild = listados.firstChild;
-
-        // Se comprueba si hay algun listado cargado
-        if(!(firstChild == null) || !(firstChild == undefined)){
-        
-            //Si lo hay, se limpia
-            divListados.removeChild(firstChild);
-        }
+        listados.innerHTML = "";
     }
 }

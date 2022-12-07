@@ -1,7 +1,10 @@
 "use strict"
 //# sourceURL=listadoEquiposSoftware.js
 
-document.querySelector("#btnAceptarListadoEquiposSoftware").addEventListener("click", validarListadoEquiposSoftware, false);
+$(document).ready(function() {
+    frmListadoEquiposSoftware.txtIdSoftware.value = "";
+    document.querySelector("#btnAceptarListadoEquiposSoftware").addEventListener("click", validarListadoEquiposSoftware, false);
+});
 
 function validarListadoEquiposSoftware(){
     let sErrores = "";
@@ -38,15 +41,8 @@ function mostrarListadoEquiposSoftware(oEvento){
     $.get("listadoEquiposSoftware/listadoEquiposSoftware.php", sParametros, procesoRespuestaMostrarListadoEquiposSoftware, "json");
 }
 function procesoRespuestaMostrarListadoEquiposSoftware(oDatos, sStatus, oXHR){
-    let divListados = document.querySelector('#listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun listado cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-        
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    // Se se limpia el div de listados
+    listados.innerHTML = "";
 
     var tbThead = document.createElement("thead");
     let trEncabezado = document.createElement("tr");
@@ -176,5 +172,5 @@ function procesoRespuestaMostrarListadoEquiposSoftware(oDatos, sStatus, oXHR){
     });
 
     oTabla.appendChild(tblBody);
-    divListados.appendChild(oTabla);
+    listados.appendChild(oTabla);
 }

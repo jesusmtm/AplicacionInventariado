@@ -1,4 +1,17 @@
 $(document).ready(function() {
+    //Escondemos todas las vistas innecesarias al cargar la pagina
+    document.getElementById("botones2").style.display = "none";
+    document.getElementById("formularios").style.display = "none";
+    document.getElementById("listados").style.display = "none";
+
+    //Asignamos los eventos a los botones de inicio
+    document.querySelector("#botonUsuario").addEventListener("click",abrirOpcionesUsuario);
+    document.querySelector("#botonEquipo").addEventListener("click",abrirOpcionesEquipo);
+    document.querySelector("#botonSoftware").addEventListener("click",abrirOpcionesSoftware);
+    document.querySelector("#botonDepartamento").addEventListener("click",abrirOpcionesDepartamento);
+    document.querySelector("#botonSede").addEventListener("click",abrirOpcionesSede);
+    document.querySelector("#botonInstalacion").addEventListener("click",abrirOpcionesInstalacion);
+
     // Carga dinámica de formularios
     document.querySelector("#mnuAltaUsuario").addEventListener("click",abrirAltaUsuario);
     document.querySelector("#mnuModificarUsuario").addEventListener("click",abrirModificarUsuario);
@@ -6,29 +19,244 @@ $(document).ready(function() {
     document.querySelector("#mnuModificarEquipo").addEventListener("click",abrirModificarEquipo);
     document.querySelector("#mnuAltaSoftware").addEventListener("click",abrirAltaSoftware);
     document.querySelector("#mnuBorrarSoftware").addEventListener("click",abrirBorrarSoftware);
-    document.querySelector("#mnuAsignarSoftware").addEventListener("click",abrirAsignarSoftware);
-    document.querySelector("#mnuDesasignarSoftware").addEventListener("click",abrirDesasignarSoftware);    
-    document.querySelector("#mnuAltaUbicacion").addEventListener("click",abrirAltaUbicacion);
-    document.querySelector("#mnuBorrarUbicacion").addEventListener("click",abrirBorrarUbicacion);
+    document.querySelector("#mnuInstalarSoftware").addEventListener("click",abrirInstalarSoftware);
+    document.querySelector("#mnuDesinstalarSoftware").addEventListener("click",abrirDesinstalarSoftware);    
+    document.querySelector("#mnuAltaSede").addEventListener("click",abrirAltaSede);
+    document.querySelector("#mnuBorrarSede").addEventListener("click",abrirBorrarSede);
+    document.querySelector("#mnuAltaDepartamento").addEventListener("click",abrirAltaDepartamento);
+    document.querySelector("#mnuBorrarDepartamento").addEventListener("click",abrirBorrarDepartamento);
     document.querySelector("#mnuListaXML").addEventListener("click",abrirListaXML);
     document.querySelector("#mnuListaUsuarios").addEventListener("click",abrirListaUsuarios);
     document.querySelector("#mnuListaEquipos").addEventListener("click",abrirListaEquipos);
     document.querySelector("#mnuListaSoftware").addEventListener("click",abrirListaSoftware);
-    document.querySelector("#mnuListaAsignaciones").addEventListener("click",abrirListaAsignaciones);
-    document.querySelector("#mnuListaUbicaciones").addEventListener("click",abrirListaUbicaciones);
-    document.querySelector("#mnuListaUsuariosUbicacion").addEventListener("click",abrirListaUsuariosUbicacion);
+    document.querySelector("#mnuListaInstalaciones").addEventListener("click",abrirListaInstalaciones);
+    document.querySelector("#mnuListaSedes").addEventListener("click",abrirListaSedes);
+    document.querySelector("#mnuListaDepartamentos").addEventListener("click",abrirListaDepartamentos);
+    document.querySelector("#mnuListaUsuariosSede").addEventListener("click",abrirListaUsuariosSede);
     document.querySelector("#mnuListaEquiposSoftware").addEventListener("click",abrirListaEquiposSoftware);
 });
 
-function abrirAltaUsuario(datos) {
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
+function abrirOpcionesUsuario(datos){
+    //Se esconde el main que contiene los botones principales
+    document.getElementById("botones").style.display = "none";
+    //Se muestra el div que contiene los botones secundarios
+    document.getElementById("botones2").style.display = "flex";
 
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    let botonAlta = document.createElement("button");
+    let botonModificacion = document.createElement("button");
+    let botonListado = document.createElement("button");
+
+    botonAlta.classList.add("btnGrande");
+    botonModificacion.classList.add("btnGrande");
+    botonListado.classList.add("btnGrande");
+
+    botonAlta.setAttribute("id","botonAltaUsuario");
+    botonModificacion.setAttribute("id","botonModificarUsuario");
+    botonListado.setAttribute("id","botonListarUsuario");
+
+    let textoBotonAlta = document.createTextNode("Alta");
+    let textoBotonModificar = document.createTextNode("Modificar/Borrar"); 
+    let textoBotonListado = document.createTextNode("Listado");
+
+    botonAlta.appendChild(textoBotonAlta);
+    botonModificacion.appendChild(textoBotonModificar);
+    botonListado.appendChild(textoBotonListado);
+
+    botones2.appendChild(botonAlta);
+    botones2.appendChild(botonModificacion);
+    botones2.appendChild(botonListado);
+
+    document.querySelector("#botonAltaUsuario").addEventListener("click",abrirAltaUsuario);
+    document.querySelector("#botonModificarUsuario").addEventListener("click",abrirModificarUsuario);
+    document.querySelector("#botonListarUsuario").addEventListener("click",abrirListaUsuarios);
+}
+
+function abrirOpcionesEquipo(datos){
+    //Se esconde el main que contiene los botones principales
+    document.getElementById("botones").style.display = "none";
+    //Se muestra el div que contiene los botones secundarios
+    document.getElementById("botones2").style.display = "flex";
+
+    let botonAlta = document.createElement("button");
+    let botonModificacion = document.createElement("button");
+    let botonListado = document.createElement("button");
+
+    botonAlta.classList.add("btnGrande");
+    botonModificacion.classList.add("btnGrande");
+    botonListado.classList.add("btnGrande");
+
+    botonAlta.setAttribute("id","botonAltaEquipo");
+    botonModificacion.setAttribute("id","botonModificarEquipo");
+    botonListado.setAttribute("id","botonListarEquipo");
+
+    let textoBotonAlta = document.createTextNode("Alta");
+    let textoBotonModificar = document.createTextNode("Modificar/Borrar"); 
+    let textoBotonListado = document.createTextNode("Listado");
+
+    botonAlta.appendChild(textoBotonAlta);
+    botonModificacion.appendChild(textoBotonModificar);
+    botonListado.appendChild(textoBotonListado);
+
+    botones2.appendChild(botonAlta);
+    botones2.appendChild(botonModificacion);
+    botones2.appendChild(botonListado);
+
+    document.querySelector("#botonAltaEquipo").addEventListener("click",abrirAltaEquipo);
+    document.querySelector("#botonModificarEquipo").addEventListener("click",abrirModificarEquipo);
+    document.querySelector("#botonListarEquipo").addEventListener("click",abrirListaEquipos);
+}
+
+function abrirOpcionesSoftware(datos){
+    //Se esconde el main que contiene los botones principales
+    document.getElementById("botones").style.display = "none";
+    //Se muestra el div que contiene los botones secundarios
+    document.getElementById("botones2").style.display = "flex";
+
+    let botonAlta = document.createElement("button");
+    let botonModificacion = document.createElement("button");
+    let botonListado = document.createElement("button");
+
+    botonAlta.classList.add("btnGrande");
+    botonModificacion.classList.add("btnGrande");
+    botonListado.classList.add("btnGrande");
+
+    botonAlta.setAttribute("id","botonAltaSoftware");
+    botonModificacion.setAttribute("id","botonBorrarSoftware");
+    botonListado.setAttribute("id","botonListarSoftware");
+
+    let textoBotonAlta = document.createTextNode("Alta");
+    let textoBotonModificar = document.createTextNode("Borrar"); 
+    let textoBotonListado = document.createTextNode("Listado");
+
+    botonAlta.appendChild(textoBotonAlta);
+    botonModificacion.appendChild(textoBotonModificar);
+    botonListado.appendChild(textoBotonListado);
+
+    botones2.appendChild(botonAlta);
+    botones2.appendChild(botonModificacion);
+    botones2.appendChild(botonListado);
+
+    document.querySelector("#botonAltaSoftware").addEventListener("click",abrirAltaSoftware);
+    document.querySelector("#botonBorrarSoftware").addEventListener("click",abrirBorrarSoftware);
+    document.querySelector("#botonListarSoftware").addEventListener("click",abrirListaSoftware);
+}
+
+function abrirOpcionesDepartamento(datos){
+    //Se esconde el main que contiene los botones principales
+    document.getElementById("botones").style.display = "none";
+    //Se muestra el div que contiene los botones secundarios
+    document.getElementById("botones2").style.display = "flex";
+
+    let botonAlta = document.createElement("button");
+    let botonModificacion = document.createElement("button");
+    let botonListado = document.createElement("button");
+
+    botonAlta.classList.add("btnGrande");
+    botonModificacion.classList.add("btnGrande");
+    botonListado.classList.add("btnGrande");
+
+    botonAlta.setAttribute("id","botonAltaDepartamento");
+    botonModificacion.setAttribute("id","botonBorrarDepartamento");
+    botonListado.setAttribute("id","botonListarDepartamento");
+
+    let textoBotonAlta = document.createTextNode("Alta");
+    let textoBotonModificar = document.createTextNode("Borrar"); 
+    let textoBotonListado = document.createTextNode("Listado");
+
+    botonAlta.appendChild(textoBotonAlta);
+    botonModificacion.appendChild(textoBotonModificar);
+    botonListado.appendChild(textoBotonListado);
+
+    botones2.appendChild(botonAlta);
+    botones2.appendChild(botonModificacion);
+    botones2.appendChild(botonListado);
+
+    document.querySelector("#botonAltaDepartamento").addEventListener("click",abrirAltaDepartamento);
+    document.querySelector("#botonBorrarDepartamento").addEventListener("click",abrirBorrarDepartamento);
+    document.querySelector("#botonListarDepartamento").addEventListener("click",abrirListaDepartamentos);
+}
+
+function abrirOpcionesSede(datos){
+    //Se esconde el main que contiene los botones principales
+    document.getElementById("botones").style.display = "none";
+    //Se muestra el div que contiene los botones secundarios
+    document.getElementById("botones2").style.display = "flex";
+
+    let botonAlta = document.createElement("button");
+    let botonModificacion = document.createElement("button");
+    let botonListado = document.createElement("button");
+
+    botonAlta.classList.add("btnGrande");
+    botonModificacion.classList.add("btnGrande");
+    botonListado.classList.add("btnGrande");
+
+    botonAlta.setAttribute("id","botonAltaSede");
+    botonModificacion.setAttribute("id","botonBorrarSede");
+    botonListado.setAttribute("id","botonListarSede");
+
+    let textoBotonAlta = document.createTextNode("Alta");
+    let textoBotonModificar = document.createTextNode("Borrar"); 
+    let textoBotonListado = document.createTextNode("Listado");
+
+    botonAlta.appendChild(textoBotonAlta);
+    botonModificacion.appendChild(textoBotonModificar);
+    botonListado.appendChild(textoBotonListado);
+
+    botones2.appendChild(botonAlta);
+    botones2.appendChild(botonModificacion);
+    botones2.appendChild(botonListado);
+
+    document.querySelector("#botonAltaSede").addEventListener("click",abrirAltaSede);
+    document.querySelector("#botonBorrarSede").addEventListener("click",abrirBorrarSede);
+    document.querySelector("#botonListarSede").addEventListener("click",abrirListaSedes);
+}
+
+function abrirOpcionesInstalacion(datos){
+    //Se esconde el main que contiene los botones principales
+    document.getElementById("botones").style.display = "none";
+    //Se muestra el div que contiene los botones secundarios
+    document.getElementById("botones2").style.display = "flex";
+
+    let botonAlta = document.createElement("button");
+    let botonModificacion = document.createElement("button");
+    let botonListado = document.createElement("button");
+
+    botonAlta.classList.add("btnGrande");
+    botonModificacion.classList.add("btnGrande");
+    botonListado.classList.add("btnGrande");
+
+    botonAlta.setAttribute("id","botonAltaInstalacion");
+    botonModificacion.setAttribute("id","botonBorrarInstalacion");
+    botonListado.setAttribute("id","botonListarInstalacion");
+
+    let textoBotonAlta = document.createTextNode("Alta");
+    let textoBotonModificar = document.createTextNode("Borrar"); 
+    let textoBotonListado = document.createTextNode("Listado");
+
+    botonAlta.appendChild(textoBotonAlta);
+    botonModificacion.appendChild(textoBotonModificar);
+    botonListado.appendChild(textoBotonListado);
+
+    botones2.appendChild(botonAlta);
+    botones2.appendChild(botonModificacion);
+    botones2.appendChild(botonListado);
+
+    document.querySelector("#botonAltaInstalacion").addEventListener("click",abrirInstalarSoftware);
+    document.querySelector("#botonBorrarInstalacion").addEventListener("click",abrirDesinstalarSoftware);
+    document.querySelector("#botonListarInstalacion").addEventListener("click",abrirListaInstalaciones);
+}
+
+function abrirAltaUsuario(datos) {
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
+
     // Oculto todos los formularios menos este
     $("form:not('#frmAltaUsuario')").parent("div").hide("normal");
 
@@ -47,16 +275,14 @@ function abrirAltaUsuario(datos) {
 }
 
 function abrirModificarUsuario() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);  
-    }
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios y listados
+    document.getElementById("formularios").style.display = "block";
+    document.getElementById("listados").style.display = "block";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
     
     // Oculto todos los formularios menos este
     $("form:not('#frmModificarUsuario')").parent("div").hide("normal");
@@ -76,16 +302,15 @@ function abrirModificarUsuario() {
 }
 
 function abrirAltaEquipo() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
 
     // Oculto todos los formularios menos este
     $("form:not('#frmAltaEquipo')").parent("div").hide("normal");
@@ -104,16 +329,14 @@ function abrirAltaEquipo() {
 }
 
 function abrirModificarEquipo() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios y listados
+    document.getElementById("formularios").style.display = "block";
+    document.getElementById("listados").style.display = "block";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
         
     // Oculto todos los formularios menos este
     $("form:not('#frmModificarEquipo')").parent("div").hide("normal");
@@ -133,16 +356,15 @@ function abrirModificarEquipo() {
 }
 
 function abrirAltaSoftware() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
 
     // Oculto todos los formularios menos este
     $("form:not('#frmAltaSoftware')").parent("div").hide("normal");
@@ -162,16 +384,15 @@ function abrirAltaSoftware() {
 }
 
 function abrirBorrarSoftware() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
 
     // Oculto todos los formularios menos este
     $("form:not('#frmBorrarSoftware')").parent("div").hide("normal");
@@ -190,251 +411,322 @@ function abrirBorrarSoftware() {
     }
 }
 
-function abrirAsignarSoftware() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+function abrirInstalarSoftware() {
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
 
     // Oculto todos los formularios menos este
-    $("form:not('#frmAsignarSoftware')").parent("div").hide("normal");
+    $("form:not('#frmInstalarSoftware')").parent("div").hide("normal");
 
     // Verifico si ya he cargado el formulario antes
-    // if ($('#frmAsignarSoftware').size() == 0) {
-    if (document.querySelector("#frmAsignarSoftware") == null){
-        $("<div>").appendTo('#formularios').load("asignarSoftware/asignarSoftware.html",
+    // if ($('#frmInstalarSoftware').size() == 0) {
+    if (document.querySelector("#frmInstalarSoftware") == null){
+        $("<div>").appendTo('#formularios').load("instalarSoftware/instalarSoftware.html",
             function() {
-                $.getScript("asignarSoftware/asignarSoftware.js");
+                $.getScript("instalarSoftware/instalarSoftware.js");
             });
 
     } else {
         // Lo muestro si está oculto
-        $('#frmAsignarSoftware').parent().show("normal");
+        $('#frmInstalarSoftware').parent().show("normal");
     }
 }
 
-function abrirDesasignarSoftware() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+function abrirDesinstalarSoftware() {
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios y listados
+    document.getElementById("formularios").style.display = "block";
+    document.getElementById("listados").style.display = "block";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
 
     // Oculto todos los formularios menos este
-    $("form:not('#frmDesasignarSoftware')").parent("div").hide("normal");
+    $("form:not('#frmDesinstalarSoftware')").parent("div").hide("normal");
 
     // Verifico si ya he cargado el formulario antes
-    // if ($('#frmDesasignarSoftware').size() == 0) {
-    if (document.querySelector("#frmDesasignarSoftware") == null){
-        $("<div>").appendTo('#formularios').load("desasignarSoftware/desasignarSoftware.html",
+    // if ($('#frmDesinstalarSoftware').size() == 0) {
+    if (document.querySelector("#frmDesinstalarSoftware") == null){
+        $("<div>").appendTo('#formularios').load("desinstalarSoftware/desinstalarSoftware.html",
             function() {
-                $.getScript("desasignarSoftware/desasignarSoftware.js");
+                $.getScript("desinstalarSoftware/desinstalarSoftware.js");
             });
 
     } else {
         // Lo muestro si está oculto
-        $('#frmDesasignarSoftware').parent().show("normal");
+        $('#frmDesinstalarSoftware').parent().show("normal");
     }
 }
 
-function abrirAltaUbicacion() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+function abrirAltaSede() {
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
 
     // Oculto todos los formularios menos este
-    $("form:not('#frmAltaUbicacion')").parent("div").hide("normal");
+    $("form:not('#frmAltaSede')").parent("div").hide("normal");
 
     // Verifico si ya he cargado el formulario antes
-    // if ($('#frmAltaUbicacion').size() == 0) {
-    if (document.querySelector("#frmAltaUbicacion") == null){
-        $("<div>").appendTo('#formularios').load("altaUbicacion/altaUbicacion.html",
+    // if ($('#frmAltaSede').size() == 0) {
+    if (document.querySelector("#frmAltaSede") == null){
+        $("<div>").appendTo('#formularios').load("altaSede/altaSede.html",
             function() {
-                $.getScript("altaUbicacion/altaUbicacion.js");
+                $.getScript("altaSede/altaSede.js");
             });
 
     } else {
         // Lo muestro si está oculto
-        $('#frmAltaUbicacion').parent().show("normal");
+        $('#frmAltaSede').parent().show("normal");
     }
 }
 
-function abrirBorrarUbicacion() {
-
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+function abrirBorrarSede() {
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
 
     // Oculto todos los formularios menos este
-    $("form:not('#frmBorrarUbicacion')").parent("div").hide("normal");
+    $("form:not('#frmBorrarSede')").parent("div").hide("normal");
 
     // Verifico si ya he cargado el formulario antes
-    // if ($('#frmBorrarUbicacion').size() == 0) {
-    if (document.querySelector("#frmBorrarUbicacion") == null){
-        $("<div>").appendTo('#formularios').load("borrarUbicacion/borrarUbicacion.html",
+    // if ($('#frmBorrarSede').size() == 0) {
+    if (document.querySelector("#frmBorrarSede") == null){
+        $("<div>").appendTo('#formularios').load("borrarSede/borrarSede.html",
             function() {
-                $.getScript("borrarUbicacion/borrarUbicacion.js");
+                $.getScript("borrarSede/borrarSede.js");
             });
 
     } else {
         // Lo muestro si está oculto
-        $('#frmBorrarUbicacion').parent().show("normal");
+        $('#frmBorrarSede').parent().show("normal");
+    }
+}
+
+function abrirAltaDepartamento() {
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
+
+    // Oculto todos los formularios menos este
+    $("form:not('#frmAltaDepartamento')").parent("div").hide("normal");
+
+    // Verifico si ya he cargado el formulario antes
+    // if ($('#frmAltaDepartamento').size() == 0) {
+    if (document.querySelector("#frmAltaDepartamento") == null){
+        $("<div>").appendTo('#formularios').load("altaDepartamento/altaDepartamento.html",
+            function() {
+                $.getScript("altaDepartamento/altaDepartamento.js");
+            });
+
+    } else {
+        // Lo muestro si está oculto
+        $('#frmAltaDepartamento').parent().show("normal");
+    }
+}
+
+function abrirBorrarDepartamento() {
+    //Se esconde el div de listados
+    document.getElementById("listados").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("formularios").style.display = "block";
+
+    // Oculto todos los formularios menos este
+    $("form:not('#frmBorrarDepartamento')").parent("div").hide("normal");
+
+    // Verifico si ya he cargado el formulario antes
+    // if ($('#frmBorrarDepartamento').size() == 0) {
+    if (document.querySelector("#frmBorrarDepartamento") == null){
+        $("<div>").appendTo('#formularios').load("borrarDepartamento/borrarDepartamento.html",
+            function() {
+                $.getScript("borrarDepartamento/borrarDepartamento.js");
+            });
+
+    } else {
+        // Lo muestro si está oculto
+        $('#frmBorrarDepartamento').parent().show("normal");
     }
 }
 
 function abrirListaXML(){
-    let divFormularios = document.getElementById('formularios');
-    let firstChild = formularios.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divFormularios.removeChild(firstChild);
-    }
+    //Se esconde el div de formularios
+    document.getElementById("formularios").style.display = "none";
+    // Se limpia el div de listados y formularios
+    listados.innerHTML = "";
+    formularios.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("listados").style.display = "block";
 
     $.getScript("listadoXML/listadoXML.js");
 }
 
 function abrirListaUsuarios() {
-    let divFormularios = document.getElementById('formularios');
-    let firstChild = formularios.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divFormularios.removeChild(firstChild);
-    }
+    //Se esconde el div de formularios
+    document.getElementById("formularios").style.display = "none";
+    // Se limpia el div de listados y formularios
+    listados.innerHTML = "";
+    formularios.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("listados").style.display = "block";
 
     $.getScript("listadoUsuarios/listadoUsuarios.js");
 
 }
 
 function abrirListaEquipos() {
-    let divFormularios = document.getElementById('formularios');
-    let firstChild = formularios.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divFormularios.removeChild(firstChild);
-    }
+    //Se esconde el div de formularios
+    document.getElementById("formularios").style.display = "none";
+    // Se limpia el div de listados y formularios
+    listados.innerHTML = "";
+    formularios.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("listados").style.display = "block";
 
     $.getScript("listadoEquipos/listadoEquipos.js");
   
 }
 
 function abrirListaSoftware() {
-    let divFormularios = document.getElementById('formularios');
-    let firstChild = formularios.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divFormularios.removeChild(firstChild);
-    }
+    //Se esconde el div de formularios
+    document.getElementById("formularios").style.display = "none";
+    // Se limpia el div de listados y formularios
+    listados.innerHTML = "";
+    formularios.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("listados").style.display = "block";
 
     $.getScript("listadoSoftware/listadoSoftware.js");
 
 }
 
-function abrirListaAsignaciones() {
-    let divFormularios = document.getElementById('formularios');
-    let firstChild = formularios.firstChild;
+function abrirListaInstalaciones() {
+    //Se esconde el div de formularios
+    document.getElementById("formularios").style.display = "none";
+    // Se limpia el div de listados y formularios
+    listados.innerHTML = "";
+    formularios.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("listados").style.display = "block";
 
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divFormularios.removeChild(firstChild);
-    }
-
-    $.getScript("listadoAsignaciones/listadoAsignaciones.js");
-
-}
-
-function abrirListaUbicaciones() {
-    let divFormularios = document.getElementById('formularios');
-    let firstChild = formularios.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divFormularios.removeChild(firstChild);
-    }
-
-    $.getScript("listadoUbicaciones/listadoUbicaciones.js");
+    $.getScript("listadoInstalar/listadoInstalar.js");
 
 }
 
-function abrirListaUsuariosUbicacion() {
+function abrirListaSedes() {
+    //Se esconde el div de formularios
+    document.getElementById("formularios").style.display = "none";
+    // Se limpia el div de listados y formularios
+    listados.innerHTML = "";
+    formularios.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("listados").style.display = "block";
 
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
+    $.getScript("listadoSedes/listadoSedes.js");
 
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-        console.log("hola");
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+}
+
+function abrirListaDepartamentos() {
+    //Se esconde el div de formularios
+    document.getElementById("formularios").style.display = "none";
+    // Se limpia el div de listados y formularios
+    listados.innerHTML = "";
+    formularios.innerHTML = "";
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    //Mostrar div formularios
+    document.getElementById("listados").style.display = "block";
+
+    $.getScript("listadoDepartamentos/listadoDepartamentos.js");
+
+}
+
+function abrirListaUsuariosSede() {
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
+
+    //Mostrar div formularios y listados
+    document.getElementById("formularios").style.display = "block";
+    document.getElementById("listados").style.display = "block";
     
     // Oculto todos los formularios menos este
-    $("form:not('#frmListadoUsuariosUbicacion')").parent("div").hide("normal");
+    $("form:not('#frmListadoUsuariosSede')").parent("div").hide("normal");
 
     // Verifico si ya he cargado el formulario antes
-    // if ($('#frmListadoUsuariosUbicacion').size() == 0) {
-    if (document.querySelector("#frmListadoUsuariosUbicacion") == null){
-        $("<div>").appendTo('#formularios').load("listadoUsuariosUbicacion/listadoUsuariosUbicacion.html",
+    // if ($('#frmListadoUsuariosSede').size() == 0) {
+    if (document.querySelector("#frmListadoUsuariosSede") == null){
+        $("<div>").appendTo('#formularios').load("listadoUsuariosSede/listadoUsuariosSede.html",
             function() {
-                $.getScript("listadoUsuariosUbicacion/listadoUsuariosUbicacion.js");
+                $.getScript("listadoUsuariosSede/listadoUsuariosSede.js");
             });
 
     } else {
         // Lo muestro si está oculto
-        $('#frmListadoUsuariosUbicacion').parent().show("normal");
+        $('#frmListadoUsuariosSede').parent().show("normal");
     }
 }
 
 function abrirListaEquiposSoftware() {
+    //Se esconde el main y el div que contienen los botones
+    document.getElementById("botones").style.display = "none";
+    document.getElementById("botones2").style.display = "none";
+    // Se limpia el div de listados
+    listados.innerHTML = "";
 
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    //Mostrar div formularios y listados
+    document.getElementById("formularios").style.display = "block";
+    document.getElementById("listados").style.display = "block";
 
     // Oculto todos los formularios menos este
     $("form:not('#frmListadoEquiposSoftware')").parent("div").hide("normal");

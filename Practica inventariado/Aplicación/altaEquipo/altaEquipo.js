@@ -1,7 +1,8 @@
 "use strict"
 //# sourceURL=altaEquipo.js
-
-document.querySelector("#btnAceptarAltaEquipo").addEventListener("click", validarAltaEquipo, false);
+$(document).ready(function() {
+    document.querySelector("#btnAceptarAltaEquipo").addEventListener("click", validarAltaEquipo, false);
+});
 
 function validarAltaEquipo(){
     let sErrores = "";

@@ -3,7 +3,9 @@
 
 let datosJSON;
 var idEquipo;
-document.querySelector("#btnBusquedaModificacionEquipo").addEventListener("click", validarModificacionEquipo, false);
+$(document).ready(function() {
+    document.querySelector("#btnBusquedaModificacionEquipo").addEventListener("click", validarModificacionEquipo, false);
+});
 
 function validarModificacionEquipo(){
     let bValido = true; // en principio el formulario es válido
@@ -63,7 +65,8 @@ function busqueda(oEvento){
         }
     var sParametros = "busquedaId=" + JSON.stringify(busqueda);
     $.get("modificarEquipo/busquedaEquipo.php", sParametros, procesoRespuestaBusquedaEquipo, "json");
-    }else{
+    }
+    else{
         var busqueda = {
             ipEquipo: frmModificarEquipo.txtIpModificarEquipo.value.trim(),
         }
@@ -71,19 +74,13 @@ function busqueda(oEvento){
     $.get("modificarEquipo/busquedaEquipo.php", sParametros, procesoRespuestaBusquedaEquipo, "json");
     }
 }
+
 function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
     datosJSON=datos;
-    let autonum=0;
+    let autonumMod = 0;
+    let autonumBor = 0;
 
-    let divListados = document.querySelector('#listados');
-    let firstChild = listados.firstChild;
-
-    // Se comprueba si hay algun listado cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-        
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    listados.innerHTML = "";
 
     var tbThead = document.createElement("thead");
     let trEncabezado = document.createElement("tr");
@@ -99,6 +96,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
     let thEncabezadoServidor = document.createElement("th");
     let thEncabezadoDescripcion = document.createElement("th");
     let thEncabezadoModificar = document.createElement("th");
+    let thEncabezadoBorrado = document.createElement("th");
 
     thEncabezadoIdEquipo.scope="col";
     thEncabezadoIdUsuario.scope="col";
@@ -111,6 +109,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
     thEncabezadoServidor.scope="col";
     thEncabezadoDescripcion.scope="col";
     thEncabezadoModificar.scope="col";
+    thEncabezadoBorrado.scope="col";
 
     var textoEncabezadoIdEquipo = document.createTextNode("ID Equipo");
     var textoEncabezadoIdUsuario = document.createTextNode("ID Usu"); 
@@ -123,6 +122,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
     var textoEncabezadoServidor = document.createTextNode("Servidor"); 
     var textoEncabezadoDescripcion = document.createTextNode("Descripcion");
     var textoEncabezadoModificar = document.createTextNode("Modificar");
+    var textoEncabezadoBorrar = document.createTextNode("Borrar");
 
     thEncabezadoIdEquipo.appendChild(textoEncabezadoIdEquipo);
     thEncabezadoIdUsuario.appendChild(textoEncabezadoIdUsuario);
@@ -135,6 +135,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
     thEncabezadoServidor.appendChild(textoEncabezadoServidor);
     thEncabezadoDescripcion.appendChild(textoEncabezadoDescripcion);
     thEncabezadoModificar.appendChild(textoEncabezadoModificar);
+    thEncabezadoBorrado.appendChild(textoEncabezadoBorrar);
 
     trEncabezado.appendChild(thEncabezadoIdEquipo);
     trEncabezado.appendChild(thEncabezadoIdUsuario);
@@ -147,6 +148,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
     trEncabezado.appendChild(thEncabezadoServidor);
     trEncabezado.appendChild(thEncabezadoDescripcion);
     trEncabezado.appendChild(thEncabezadoModificar);
+    trEncabezado.appendChild(thEncabezadoBorrado);
 
     var oTabla = document.createElement("table");
     oTabla.className = "table table-dark";
@@ -170,6 +172,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
         var celda9 = document.createElement("td"); 
         var celda10 = document.createElement("td");
         var celda11 = document.createElement("td");
+        var celda12 = document.createElement("td");
 
         celda1.scope="row";
         celda2.scope="row";
@@ -182,6 +185,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
         celda9.scope="row";
         celda10.scope="row";
         celda11.scope="row";
+        celda12.scope="row";
 
         var textoCeldaIdEquipo = document.createTextNode(element[0]);
         var textoCeldaIdUsuario = document.createTextNode(element[8]); 
@@ -197,7 +201,12 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
         botonModificacion.type = "button";
         botonModificacion.textContent = "Modificar";
         botonModificacion.id = "botonModificarEquipo";
-        botonModificacion.value=autonum++;
+        botonModificacion.value=autonumMod++;
+        var botonBorrado = document.createElement("button");
+        botonBorrado.type = "button";
+        botonBorrado.textContent = "Borrar";
+        botonBorrado.id = "botonBorrarEquipo";
+        botonBorrado.value=autonumBor++;
 
         celda1.appendChild(textoCeldaIdEquipo);
         celda2.appendChild(textoCeldaIdUsuario);
@@ -210,6 +219,7 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
         celda9.appendChild(textoCeldaServidor);
         celda10.appendChild(textoCeldaDescripcion);
         celda11.appendChild(botonModificacion);
+        celda12.appendChild(botonBorrado);
 
         tr.appendChild(celda1);
         tr.appendChild(celda2);
@@ -222,33 +232,36 @@ function procesoRespuestaBusquedaEquipo(datos, sStatus, oXHR){
         tr.appendChild(celda9);
         tr.appendChild(celda10);
         tr.appendChild(celda11);
+        tr.appendChild(celda12);
 
         tblBody.appendChild(tr);
+
+        idEquipo = element[0];
     });
 
     oTabla.appendChild(tblBody);
-    divListados.appendChild(oTabla);
+    listados.appendChild(oTabla);
 
     let botonesModificar = document.querySelectorAll("#botonModificarEquipo");
     botonesModificar.forEach(element => {
         element.addEventListener("click", modificarEquipo, false);
     });
+
+    let botonesBorrado = document.querySelectorAll("#botonBorrarEquipo");
+    botonesBorrado.forEach(element => {
+        element.addEventListener("click", borrarEquipo, false);
+    });
 }
 
 function modificarEquipo(evento){
     abrirFormModificacion(datosJSON[evento.currentTarget.value]);
-    frmModificarEquipo.reset();
+    frmModificarEquipo.txtIdModificarEquipo.value = "";
+    frmModificarEquipo.txtIpModificarEquipo.value = "";
 }
 
 function abrirFormModificacion(datos){
-    let divListados = document.getElementById('listados');
-    let firstChild = listados.firstChild;
-    // Se comprueba si hay algun formulario cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
+    listados.innerHTML = "";
 
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
     // Oculto todos los formularios menos este
     $("form:not('#formModificarEquipo')").parent("div").hide("normal");
 
@@ -259,7 +272,6 @@ function abrirFormModificacion(datos){
             function() {
                 if(datos){
                     document.querySelector("#btnAceptarModificarEquipo").addEventListener("click", validarUpdate, false);
-                    document.querySelector("#btnBorrarEquipo").addEventListener("click", borrar, false);
                     rellenarAltaEquipo(datos);
                 }
             });
@@ -269,16 +281,14 @@ function abrirFormModificacion(datos){
         $('#formModificarEquipo').parent().show("normal");
         if(datos){
             document.querySelector("#btnAceptarModificarEquipo").addEventListener("click", validarUpdate, false);
-            document.querySelector("#btnBorrarEquipo").addEventListener("click", borrar, false);
             rellenarAltaEquipo(datos);
         }
     }
 }
 
 function rellenarAltaEquipo(datos){
-    idEquipo = datos[0];
     let idUsuarioEquipo = formModificarEquipo.txtIdUsuario.value = datos[8];
-    let idUbicacionEquipo = formModificarEquipo.txtIdUbicacion.value = datos[9];
+    let idSedeEquipo = formModificarEquipo.txtIdSede.value = datos[9];
     let ipEquipo = formModificarEquipo.txtIp.value = datos[1];
     let macEquipo = formModificarEquipo.txtMac.value = datos[2];
     let procesadorEquipo = formModificarEquipo.txtProcesador.value = datos[3];
@@ -288,7 +298,7 @@ function rellenarAltaEquipo(datos){
     let descripcionEquipo = formModificarEquipo.txtDescripcionEquipo.value = datos[7];
 }
 
-function borrar(){
+function borrarEquipo(){
     var confirmacion = confirm("Seguro que desea borrar el equipo con id: "+idEquipo+".");
     if(confirmacion){
         var equipo = {
@@ -308,8 +318,6 @@ function procesoRespuestaBorrarEquipo(oDatos, sStatus, oXHR){
         alert(oDatos.mensaje);
     }else{
         alert(oDatos.mensaje);
-        formModificarEquipo.reset();
-        $('#formModificarEquipo').parent("div").hide("normal");
     }
 }
 
@@ -442,7 +450,7 @@ function update(){
     var equipo = {
         id: idEquipo,
         idUsuario: formModificarEquipo.txtIdUsuario.value.trim(),
-        idUbicacion: formModificarEquipo.txtIdUbicacion.value.trim(),
+        idSede: formModificarEquipo.txtIdSede.value.trim(),
         ip: formModificarEquipo.txtIp.value.trim(),
         mac: formModificarEquipo.txtMac.value.trim(),
         procesador: formModificarEquipo.txtProcesador.value.trim(),

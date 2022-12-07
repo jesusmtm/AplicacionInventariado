@@ -1,6 +1,8 @@
 "use strict"
 
-getListaEquipos();
+$(document).ready(function() {
+    getListaEquipos();
+});
 
 function getListaEquipos(){
     $.get(
@@ -14,15 +16,16 @@ function getListaEquipos(){
 function procesoRespuesta(datos, textStatus, jqXHR){
     datos=JSON.parse(datos);
 
-    let divListados = document.querySelector('#listados');
-    let firstChild = listados.firstChild;
+    // Se se limpia el div de listados
+    listados.innerHTML = "";
 
-    // Se comprueba si hay algun listado cargado
-    if(!(firstChild == null) || !(firstChild == undefined)){
-        
-        //Si lo hay, se limpia
-        divListados.removeChild(firstChild);
-    }
+    let legend = document.createElement("legend");
+    let titulo = document.createElement("h2");
+    let textoTitulo = document.createTextNode("Listado Equipos");
+
+    titulo.appendChild(textoTitulo);
+    legend.appendChild(titulo);
+    listados.appendChild(legend);
 
     var tbThead = document.createElement("thead");
     let trEncabezado = document.createElement("tr");
@@ -152,7 +155,7 @@ function procesoRespuesta(datos, textStatus, jqXHR){
     });
 
     oTabla.appendChild(tblBody);
-    divListados.appendChild(oTabla);
+    listados.appendChild(oTabla);
 }
 
 document.querySelector("#mnuListaEquipos").addEventListener("click", getListaEquipos, false);

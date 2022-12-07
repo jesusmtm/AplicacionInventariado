@@ -1,7 +1,12 @@
 "use strict"
 //# sourceURL=altaUsuario.js
 
-document.querySelector("#btnAceptarAltaUsuario").addEventListener("click", validarAltaUsuario, false);
+$(document).ready(function() {
+    cargarComboDepartamento();
+    document.querySelector("#btnAceptarAltaUsuario").addEventListener("click", validarAltaUsuario, false);
+});
+
+
 
 function validarAltaUsuario(){
     let sErrores = "";
@@ -82,6 +87,7 @@ function validarAltaUsuario(){
         alert(sErrores);
     }
 }
+
 function altaUsuario(oEvento){
     var usuario = {
         nombreUsuario: frmAltaUsuario.txtNombreUsuario.value.trim(),
@@ -94,6 +100,7 @@ function altaUsuario(oEvento){
     var sParametros = "datosUsuario=" + JSON.stringify(usuario);
     $.get("altaUsuario/altaUsuario.php", sParametros, procesoRespuestaAltaUsuario, "json");
 }
+
 function procesoRespuestaAltaUsuario(oDatos, sStatus, oXHR){
     if(oDatos.error){
         alert(oDatos.mensaje);
@@ -104,3 +111,30 @@ function procesoRespuestaAltaUsuario(oDatos, sStatus, oXHR){
     }
 }
 
+function cargarComboDepartamento(){
+    $.get("altaUsuario/rellenarCombo.php", null, procesoRespuestaRellenarCombo, "json");
+}
+
+function procesoRespuestaRellenarCombo(oDatos, sStatus, oXHR){
+    let combo = frmAltaUsuario.comboDepartamento;
+
+    let optionNone = document.createElement("option");
+    optionNone.setAttribute("value","none");
+
+    let textoOptionNone = document.createTextNode("Seleccione un departamento...");
+
+    optionNone.appendChild(textoOptionNone);
+    combo.appendChild(optionNone);
+    
+    if(oDatos.length >= 0){
+        oDatos.forEach(element => {
+            let option = document.createElement("option");
+            option.setAttribute("value",element[0]);
+
+            let texto = document.createTextNode(element[1]);
+
+            option.appendChild(texto);
+            combo.appendChild(option);
+        });
+    }
+}
