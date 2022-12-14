@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-7" ?>
+<Usuarios> 
+    <Usuario id="1">
+	    <nombre>Juan</nombre> 	
+        <apellido>Alvarez</apellido> 
+	    <correo>juaalv@empresa1.com</correo>
+        <telefono>632145789</telefono>
+		<departamento>RRHH</departamento>
+        <anotaciones></anotaciones>
+    </Usuario>
+    <Usuario id="2">
+        <nombre>Pedro</nombre> 	
+        <apellido>García</apellido> 
+	    <correo>pedgar@empresa1.com</correo>
+        <telefono>612345789</telefono>
+		<departamento>Produccion</departamento>
+        <anotaciones>Cae mal al resto de compañeros</anotaciones>
+    </Usuario>
+    <Usuario id="3">
+        <nombre>Alvaro</nombre> 	
+        <apellido>Delgado</apellido> 
+	    <correo>alvdel@empresa1.com</correo>
+        <telefono>621345789</telefono>
+		<departamento>RRHH</departamento>
+        <anotaciones>Es pelirrojo</anotaciones>
+    </Usuario>
+    <Usuario id="4">
+        <nombre>Alberto</nombre> 	
+        <apellido>Martinez</apellido> 
+	    <correo>alvmar@empresa1.com</correo>
+        <telefono>698745123</telefono>
+		<departamento>Marketing</departamento>
+        <anotaciones></anotaciones>
+    </Usuario>
+    <Usuario id="5">
+        <nombre>Cristian</nombre> 	
+        <apellido>Del pino</apellido> 
+	    <correo>cridel@empresa1.com</correo>
+        <telefono>698745123</telefono>
+		<departamento>Administracion</departamento>
+        <anotaciones>Abandona apuestas a la mitad</anotaciones>
+    </Usuario>
+    <Usuario id="6">
+        <nombre>Jose</nombre> 	
+        <apellido>Drop</apellido> 
+	    <correo>josdro@empresa1.com</correo>
+        <telefono>645789123</telefono>
+		<departamento>Financiero</departamento>
+        <anotaciones>Mas flojo que flojin</anotaciones>
+    </Usuario>
+    <Usuario id="7">
+        <nombre>Roberto</nombre> 	
+        <apellido>Sanchez</apellido> 
+	    <correo>robsan@empresa1.com</correo>
+        <telefono>614578923</telefono>
+		<departamento>Administracion</departamento>
+        <anotaciones></anotaciones>
+    </Usuario>
+</Usuarios>
